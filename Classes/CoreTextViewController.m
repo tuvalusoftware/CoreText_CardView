@@ -34,7 +34,7 @@
 	// Create and apply the properties needed for the view.
 	CardDefinition * def = [[CardDefinition alloc] init];
 	def.CardWidth = 300;
-	def.MinCardHeight = 300;
+	def.MinCardHeight = 200;
 	def.MaxCardHeight = 300;
 	def.CardColor = [UIColor yellowColor].CGColor;
 	def.Font = CTFontDescriptorCreateWithNameAndSize(CFSTR("Times New Roman"), 30);
