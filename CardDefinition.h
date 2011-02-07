@@ -20,6 +20,8 @@
 	@private int DistanceToMid;
 	@private int RightMargin;
 	@private int LeftMargin;
+    @private int TopMargin;
+    @private int BottomMargin;
 	@private int CardWidth;
 	@private NSString* TextOverflow;
 	@private CTFontDescriptorRef Font;
@@ -39,6 +41,8 @@
 @property int DistanceToMid;
 @property int RightMargin;
 @property int LeftMargin;
+@property int TopMargin;
+@property int BottomMargin;
 @property int CardWidth;
 @property (retain) NSString* TextOverflow;
 @property CTFontDescriptorRef Font;

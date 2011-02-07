@@ -21,6 +21,8 @@
 @synthesize DistanceToMid;
 @synthesize RightMargin;
 @synthesize LeftMargin;
+@synthesize TopMargin;
+@synthesize BottomMargin;
 @synthesize CardWidth;
 @synthesize TextOverflow;
 @synthesize Font;

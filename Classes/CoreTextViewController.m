@@ -42,6 +42,10 @@
 	def.TextOverflow = @"...";
 	def.MaxFontSize = 20;
 	def.MinFontSize = 35;
+	def.LeftMargin = 10;
+	def.RightMargin = 20;
+	def.TopMargin = 15;
+	def.BottomMargin = 25;
 	NSString* message = @"This is my message that i need to keep on adding to so that it is a multi line string.";
 	
 	cardView.CardDefinition = def;

@@ -80,8 +80,8 @@ struct DrawingParameters{
 	
 	// Fill in the initial parameters of the card to be checked for fitting by the rule system.
 	struct DrawingParameters par;
-	par.TextBoxHeight = self.CardDefinition.MaxCardHeight-10;
-	par.TextBoxWidth = self.CardDefinition.CardWidth-10;
+	par.TextBoxHeight = self.CardDefinition.MaxCardHeight-self.CardDefinition.TopMargin - self.CardDefinition.BottomMargin;
+	par.TextBoxWidth = self.CardDefinition.CardWidth-self.CardDefinition.LeftMargin - self.CardDefinition.RightMargin;
 	par.FontSize = self.CardDefinition.MaxFontSize;
 	par.Framesetter = [self createFrameSetter:self.CardDefinition.MaxFontSize];
 	
@@ -89,8 +89,8 @@ struct DrawingParameters{
 	par = [self AdaptParametersAccordingToRules:par];
 
 	float cardHeight = par.TextBoxHeight;
-	if (self.CardDefinition.MinCardHeight-10 > cardHeight) {
-		cardHeight = self.CardDefinition.MinCardHeight-10;
+	if (self.CardDefinition.MinCardHeight - self.CardDefinition.TopMargin - self.CardDefinition.BottomMargin > cardHeight) {
+		cardHeight = self.CardDefinition.MinCardHeight - self.CardDefinition.TopMargin - self.CardDefinition.BottomMargin;
 	}
 	
 	// Work out the dimentions of all the elements involved.
@@ -98,13 +98,27 @@ struct DrawingParameters{
 	float totalWidth = rect.size.width;
 	CGRect pageSize = CGRectMake(0, 0, totalWidth, totalHeight);
 	
-	float cardDeltaX = (totalWidth - par.TextBoxWidth - 20) / 2;
-	float cardDeltaY = (totalHeight - cardHeight - 20) / 2;
+	float cardDeltaX = (totalWidth - par.TextBoxWidth - self.CardDefinition.LeftMargin - self.CardDefinition.RightMargin) / 2;
+	float cardDeltaY = (totalHeight - cardHeight - self.CardDefinition.TopMargin - self.CardDefinition.BottomMargin) / 2;
 	CGRect cardSize = CGRectInset(pageSize, cardDeltaX, cardDeltaY);
+
+	float minCardDeltaX = (totalWidth - par.TextBoxWidth - self.CardDefinition.LeftMargin - self.CardDefinition.RightMargin) / 2;
+	float minCardDeltaY = (totalHeight - par.TextBoxHeight - self.CardDefinition.TopMargin - self.CardDefinition.BottomMargin) / 2;
+	CGRect minCardSize = CGRectInset(pageSize, minCardDeltaX, minCardDeltaY);
 	
+	CGRect textRect = CGRectMake(minCardSize.origin.x+self.CardDefinition.LeftMargin,
+								 minCardSize.origin.y+self.CardDefinition.BottomMargin,
+								 par.TextBoxWidth, par.TextBoxHeight);
+	
+	/*
 	float textDeltaX = (totalWidth - par.TextBoxWidth) / 2;
 	float textDeltaY = (totalHeight - par.TextBoxHeight) / 2;
 	CGRect textRect = CGRectInset(pageSize, textDeltaX, textDeltaY);
+	*/
+
+	// Translate the coordinates to work for text drawing. Google this :)
+    CGContextTranslateCTM(context, 0, rect.size.height);
+    CGContextScaleCTM(context, 1.0, -1.0);
 	
 	//Draw a rectangle
 	CGContextSetFillColorWithColor(context, self.CardDefinition.CardColor);
@@ -113,17 +127,16 @@ struct DrawingParameters{
 	//Draw it
 	CGContextFillPath(context);
 
+	// Comment this back in to see where the min card rectangle ends up. In other words check if margins are correct.
+	CGContextSetFillColorWithColor(context, [UIColor greenColor].CGColor);
+	CGContextAddRect(context, minCardSize);
+	CGContextFillPath(context);
+	
 	// Comment this back in to see where the text rectangle ends up.
-	/*
 	CGContextSetFillColorWithColor(context, [UIColor redColor].CGColor);
 	CGContextAddRect(context, textRect);
 	CGContextFillPath(context);
-	*/ 
 	 
-	// Translate the coordinates to work for text drawing. Google this :)
-    CGContextTranslateCTM(context, 0, rect.size.height);
-    CGContextScaleCTM(context, 1.0, -1.0);
-	
 	// Draw the text.
     [UIBezierPath bezierPathWithRect:[self bounds]];
 	CGMutablePathRef path = CGPathCreateMutable();
