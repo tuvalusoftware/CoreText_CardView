@@ -9,18 +9,21 @@
 #import "CTCardView.h"
 #import <CoreText/CoreText.h>
 #import "CardDefinition.h"
+#import "Rules.h"
 
 @implementation CTCardView
 
 @synthesize Message;
 @synthesize CardDefinition;
+@synthesize RuleList;
 
-struct DrawingParameters{
-	float TextBoxHeight;
-	float TextBoxWidth;
-	int FontSize;
-	CTFramesetterRef Framesetter;
-};
+-(void)fillRuleList {
+	// The first rule does nothing to any parameters and sees if the text fits.
+	id defaultRule = [[DefaultSettingRule alloc] init];
+	// The second rule is to reduce the font until the text fits.
+	id fontRule = [[ReduceFontSizeRule alloc] init:self.CardDefinition.MinFontSize:1];
+	self.RuleList = [NSArray arrayWithObjects:defaultRule, fontRule, nil];
+}
 
 - (id)initWithFrame:(CGRect)frame {
     if ((self = [super initWithFrame:frame])) {
@@ -34,7 +37,7 @@ struct DrawingParameters{
     if ((self = [super initWithCoder:coder])) {
         // Initialization code
 		self.contentMode = UIViewContentModeRedraw;
-    }
+	}
     return self;
 }
 
@@ -56,7 +59,34 @@ struct DrawingParameters{
 	float maxWidth = par.TextBoxWidth;
 	CGSize constraints = CGSizeMake(maxWidth, maxHeight);
 	int messageLength = [Message length];
+	CFRange fullRange = CFRangeMake(0, messageLength);
 	
+	NSLog(@"Starting to loop through rules: Number of rules: %i", [self.RuleList count]);
+	// Go through the rules and see what adjustments can be made.
+	for (id object in self.RuleList) {
+	    id <IRule> rule = (<IRule>)object;
+		CFRange range;
+		bool canMakeAdjustment = YES;
+		while (canMakeAdjustment) {
+			par = [rule adjustParameters:par];
+			par.Framesetter = [self createFrameSetter:par.FontSize];
+			CGSize coreTextSize = CTFramesetterSuggestFrameSizeWithConstraints(par.Framesetter, fullRange, nil, constraints, &range);
+			if (range.length >= messageLength)
+			{
+				NSLog(@"Rule succeeded!");
+				par.TextBoxHeight = coreTextSize.height;
+				par.TextBoxWidth = coreTextSize.width;
+				return par;
+			}
+			canMakeAdjustment = [rule canMakeFurtherAdjustment:par];
+			NSLog(@"Rule did not succeed. Making further adjustments? %i", canMakeAdjustment);
+		}
+	}
+	[NSException raise:@"Got to end of rule set. Temp setback" format:@"blah"];
+	return par;
+	
+
+	/*
 	// Rule one: Try the framesetter as is, and see if it fits.
 	CFRange range;
 	CGSize coreTextSize = CTFramesetterSuggestFrameSizeWithConstraints(par.Framesetter, CFRangeMake(0, messageLength), nil, constraints, &range);
@@ -69,13 +99,19 @@ struct DrawingParameters{
 	}
 
 	return par;
+	*/
 }
 
 
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect {
-    [[UIColor whiteColor] set];
+    // Init the rule list if it has not been done
+	if (RuleList == nil) {
+		[self fillRuleList];
+	}
+	
+	[[UIColor whiteColor] set];
 	CGContextRef context = (CGContextRef)UIGraphicsGetCurrentContext();
 	
 	// Fill in the initial parameters of the card to be checked for fitting by the rule system.

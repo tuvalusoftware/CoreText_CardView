@@ -17,6 +17,7 @@
 		28D7ACF80DDB3853001CB0EB /* CoreTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D7ACF70DDB3853001CB0EB /* CoreTextViewController.m */; };
 		B572A4AA12EE061D00FFB5A4 /* CTCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = B572A4A912EE061D00FFB5A4 /* CTCardView.m */; };
 		B574228E12EF666E00BD0674 /* CardDefinition.m in Sources */ = {isa = PBXBuildFile; fileRef = B574228D12EF666E00BD0674 /* CardDefinition.m */; };
+		B58949DA1300791900E50168 /* Rules.m in Sources */ = {isa = PBXBuildFile; fileRef = B58949D91300791900E50168 /* Rules.m */; };
 		B5D6B39212EDDE450052584B /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5D6B39112EDDE450052584B /* CoreText.framework */; };
 /* End PBXBuildFile section */
 
@@ -38,6 +39,8 @@
 		B572A4A912EE061D00FFB5A4 /* CTCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTCardView.m; sourceTree = "<group>"; };
 		B574228C12EF666E00BD0674 /* CardDefinition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardDefinition.h; sourceTree = "<group>"; };
 		B574228D12EF666E00BD0674 /* CardDefinition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardDefinition.m; sourceTree = "<group>"; };
+		B58949D81300791900E50168 /* Rules.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rules.h; sourceTree = "<group>"; };
+		B58949D91300791900E50168 /* Rules.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Rules.m; sourceTree = "<group>"; };
 		B5D6B39112EDDE450052584B /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -87,6 +90,8 @@
 				B572A4A912EE061D00FFB5A4 /* CTCardView.m */,
 				B574228C12EF666E00BD0674 /* CardDefinition.h */,
 				B574228D12EF666E00BD0674 /* CardDefinition.m */,
+				B58949D81300791900E50168 /* Rules.h */,
+				B58949D91300791900E50168 /* Rules.m */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -190,6 +195,7 @@
 				28D7ACF80DDB3853001CB0EB /* CoreTextViewController.m in Sources */,
 				B572A4AA12EE061D00FFB5A4 /* CTCardView.m in Sources */,
 				B574228E12EF666E00BD0674 /* CardDefinition.m in Sources */,
+				B58949DA1300791900E50168 /* Rules.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,9 +12,11 @@
 @interface CTCardView : UIView {
 	@private NSString* Message;
 	@private CardDefinition *CardDefinition;
+    @private NSArray *RuleList;
 }
 
 @property (retain) NSString* Message;
 @property (retain) CardDefinition* CardDefinition;
+@property (retain) NSArray *RuleList;
 
 @end
