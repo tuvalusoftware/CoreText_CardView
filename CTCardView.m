@@ -43,11 +43,18 @@
 
 // Creates a framesetter, using the given font size.
 -(CTFramesetterRef)createFrameSetter:(int)fontSize{
+	// create paragraph style and assign text alignment to it
+	CTTextAlignment alignment = kCTJustifiedTextAlignment;
+	CTParagraphStyleSetting settings[] = {    {kCTParagraphStyleSpecifierAlignment, sizeof(alignment), &alignment} };
+	CTParagraphStyleRef paragraphStyle = CTParagraphStyleCreate(settings, sizeof(settings) / sizeof(settings[0]));
+	
 	CTFontRef realFont = CTFontCreateWithFontDescriptor(self.CardDefinition.Font, fontSize, NULL);
 	CFMutableAttributedStringRef attrStr = CFAttributedStringCreateMutable(NULL, [Message length]);
 	CFAttributedStringReplaceString (attrStr, CFRangeMake(0, 0), (CFStringRef) Message);
+	// Special Note: Do not create a range and keep it to pass into all the set attribute methods! This breaks the settings. Dont ask me why.
 	CFAttributedStringSetAttribute(attrStr, CFRangeMake(0, CFAttributedStringGetLength(attrStr)), kCTFontAttributeName, realFont);
 	CFAttributedStringSetAttribute(attrStr, CFRangeMake(0, CFAttributedStringGetLength(attrStr)), kCTForegroundColorAttributeName, self.CardDefinition.FontColor);
+	CFAttributedStringSetAttribute(attrStr, CFRangeMake(0, CFAttributedStringGetLength(attrStr)), kCTParagraphStyleAttributeName, paragraphStyle);
 	return CTFramesetterCreateWithAttributedString(attrStr);
 }
 
