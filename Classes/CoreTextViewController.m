@@ -35,7 +35,7 @@
 	CardDefinition * def = [[CardDefinition alloc] init];
 	def.CardWidth = 300;
 	def.MinCardHeight = 200;
-	def.MaxCardHeight = 200;
+	def.MaxCardHeight = 300;
 	def.CardColor = [UIColor yellowColor].CGColor;
 	def.Font = CTFontDescriptorCreateWithNameAndSize(CFSTR("Times New Roman"), 30);
 	def.FontColor = [UIColor blueColor].CGColor;
@@ -47,7 +47,8 @@
 	def.TopMargin = 15;
 	def.BottomMargin = 25;
 	def.TextAllignment = kCTJustifiedTextAlignment;
-	NSString* message = @"This is my message that i need to keep on adding to so that it is a multi line string. Which is now not short enough to test the first rule, which is to lower the font size until min font size is reached. Which was still not the case, so I am trying some more random text.";
+	//NSString* message = @"This is my message that i need to keep on adding to so that it is a multi line string. Which is now not short enough to test the first rule, which is to lower the font size until min font size is reached. Which was still not the case, so I am trying some more random text.";
+	NSString* message = @"Short message.";
 	
 	cardView.CardDefinition = def;
 	cardView.Message = message;

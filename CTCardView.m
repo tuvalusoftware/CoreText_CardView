@@ -21,8 +21,7 @@
 	id defaultRule = [[DefaultSettingRule alloc] init];
 	// The second rule is to reduce the font until the text fits.
 	id fontRule = [[ReduceFontSizeRule alloc] init:self.CardDefinition.MinFontSize:1];
-	RuleList = [NSArray arrayWithObjects:defaultRule, fontRule, nil];
-	[RuleList retain];
+	RuleList = [[NSArray alloc] initWithObjects:defaultRule, fontRule, nil];
 }
 
 - (id)initWithFrame:(CGRect)frame {
