@@ -10,25 +10,26 @@
 #import <CoreText/CoreText.h>
 
 @interface CardDefinition : NSObject {
-	@private int PageHeight;
-	@private int PageWidth;
-	@private CGColorRef CardColor;
-	@private CGColorRef BackgroundColor;
-	@private int MaxCardHeight;
-	@private int MinCardHeight;
-	@private int DefaultCardHeight;
-	@private int DistanceToMid;
-	@private int RightMargin;
-	@private int LeftMargin;
-    @private int TopMargin;
-    @private int BottomMargin;
-	@private int CardWidth;
-	@private NSString* TextOverflow;
-	@private CTFontDescriptorRef Font;
-	@private CGColorRef FontColor;
-	@private int MaxFontSize;
-	@private int MinFontSize;
-	
+@private 
+	int PageHeight;
+	int PageWidth;
+	CGColorRef CardColor;
+	CGColorRef BackgroundColor;
+	int MaxCardHeight;
+	int MinCardHeight;
+	int DefaultCardHeight;
+	int DistanceToMid;
+	int RightMargin;
+	int LeftMargin;
+    int TopMargin;
+    int BottomMargin;
+	int CardWidth;
+	NSString* TextOverflow;
+	CTFontDescriptorRef Font;
+	CGColorRef FontColor;
+	int MaxFontSize;
+	int MinFontSize;
+	CTTextAlignment TextAllignment; 
 }
 
 @property int PageHeight;
@@ -49,6 +50,7 @@
 @property CGColorRef FontColor;
 @property int MaxFontSize;
 @property int MinFontSize;
+@property CTTextAlignment TextAllignment;
 
 /* Things to add still
  @property image CardBackgroundImage;

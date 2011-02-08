@@ -46,6 +46,7 @@
 	def.RightMargin = 20;
 	def.TopMargin = 15;
 	def.BottomMargin = 25;
+	def.TextAllignment = kCTJustifiedTextAlignment;
 	NSString* message = @"This is my message that i need to keep on adding to so that it is a multi line string. Which is now not short enough to test the first rule, which is to lower the font size until min font size is reached. Which was still not the case, so I am trying some more random text.";
 	
 	cardView.CardDefinition = def;

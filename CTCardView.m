@@ -44,7 +44,7 @@
 // Creates a framesetter, using the given font size.
 -(CTFramesetterRef)createFrameSetter:(int)fontSize{
 	// create paragraph style and assign text alignment to it
-	CTTextAlignment alignment = kCTJustifiedTextAlignment;
+	CTTextAlignment alignment = self.CardDefinition.TextAllignment;
 	CTParagraphStyleSetting settings[] = {    {kCTParagraphStyleSpecifierAlignment, sizeof(alignment), &alignment} };
 	CTParagraphStyleRef paragraphStyle = CTParagraphStyleCreate(settings, sizeof(settings) / sizeof(settings[0]));
 	

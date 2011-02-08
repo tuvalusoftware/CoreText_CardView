@@ -29,5 +29,6 @@
 @synthesize FontColor;
 @synthesize MaxFontSize;
 @synthesize MinFontSize;
+@synthesize TextAllignment;
 
 @end
