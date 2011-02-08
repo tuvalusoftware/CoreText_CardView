@@ -15,14 +15,14 @@
 
 @synthesize Message;
 @synthesize CardDefinition;
-@synthesize RuleList;
 
 -(void)fillRuleList {
 	// The first rule does nothing to any parameters and sees if the text fits.
 	id defaultRule = [[DefaultSettingRule alloc] init];
 	// The second rule is to reduce the font until the text fits.
 	id fontRule = [[ReduceFontSizeRule alloc] init:self.CardDefinition.MinFontSize:1];
-	self.RuleList = [NSArray arrayWithObjects:defaultRule, fontRule, nil];
+	RuleList = [NSArray arrayWithObjects:defaultRule, fontRule, nil];
+	[RuleList retain];
 }
 
 - (id)initWithFrame:(CGRect)frame {
@@ -68,9 +68,9 @@
 	int messageLength = [Message length];
 	CFRange fullRange = CFRangeMake(0, messageLength);
 	
-	NSLog(@"Starting to loop through rules: Number of rules: %i", [self.RuleList count]);
+	NSLog(@"Starting to loop through rules: Number of rules: %i", [RuleList count]);
 	// Go through the rules and see what adjustments can be made.
-	for (id object in self.RuleList) {
+	for (id object in RuleList) {
 	    id <IRule> rule = (<IRule>)object;
 		CFRange range;
 		bool canMakeAdjustment = YES;
@@ -194,6 +194,7 @@
 - (void)dealloc {
 	[CardDefinition release];
 	[Message release];
+	[RuleList release];
 	
     [super dealloc];
 }

@@ -17,6 +17,5 @@
 
 @property (retain) NSString* Message;
 @property (retain) CardDefinition* CardDefinition;
-@property (retain) NSArray *RuleList;
 
 @end
